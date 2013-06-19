@@ -1,0 +1,3 @@
+# bootstraps
+_dotenv_source_files common '*.bash'
+_dotenv_source_files private '*.bash'
