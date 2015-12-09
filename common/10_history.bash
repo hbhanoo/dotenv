@@ -11,7 +11,7 @@ HISTFILESIZE=20000
 
 # TODO (bhanoo): move this to another file.
 
-SHARED_HOME=/home/${USER}
+SHARED_HOME=$HOME # ?? /home/${USER}
 SHARED_HISTORY_FILE=${SHARED_HOME}/.shared_history
 
 # Setting PROMPT_COMMAND=prompt_command will automatically notify after a run
