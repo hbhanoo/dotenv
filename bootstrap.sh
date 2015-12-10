@@ -1,6 +1,6 @@
-# .bashrc
-# This file should be in your home directory.
-# 
+# bootstrap.sh
+# source this from your .bashrc file
+#
 # Source global definitions
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc

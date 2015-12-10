@@ -1,0 +1,11 @@
+[core]
+	excludesfile = ~/.gitignore
+	
+[user]
+	email = github@hbhanoo.fastmail.fm
+	name = Hemant Bhanoo
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
