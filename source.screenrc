@@ -1,0 +1,11 @@
+# use z as the escape key
+escape ^Zz
+# use a login-shell (ie. don't mess with stuff)
+shell -$SHELL
+# 
+autodetach on
+# show the windows at the bottom
+hardstatus alwayslastline "%w"
+
+# lots of history; why not.
+defscrollback 10000 
