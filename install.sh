@@ -12,7 +12,7 @@ _install_source_file() {
 					 echo $dotfile already up to date
 			 else
 					 echo $file and ~/$dotfile are different. Figure it out manually:
-					 diff $file ~/$dotfile
+					 diff -y $file ~/$dotfile
 			 fi
 		else
 				echo copying $file to home directory as $dotfile

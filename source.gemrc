@@ -1,1 +1,4 @@
-gem: --no-document
+#
+---
+nonsensicalkey: novalue # just so we don't have an empty hash in the yaml file.
+# gem: --no-document
