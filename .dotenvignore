@@ -4,3 +4,12 @@ source.CFUserTextEncoding
 source.DS_Store
 source.bhanoo_HD_Quality.txt
 source.mkshrc
+source.irb-history
+source.lesshst
+source.mysql_history
+source.netrc
+source.node_repl_history
+source.psql_history
+source.shared_history
+source.viminfo
+source.profile
