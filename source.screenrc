@@ -1,6 +1,9 @@
 # use z as the escape key
 escape ^Zz
 # use a login-shell (ie. don't mess with stuff)
+# TODO(hbhanoo): get rid of this, and make it so that
+# .bashrc automatically starts up with full env, but bash_profile doesn't
+# (so that first window is clean)
 shell -$SHELL
 # 
 autodetach on

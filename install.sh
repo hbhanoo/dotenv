@@ -11,6 +11,7 @@ _install_source_file() {
 					 # no worries.
 					 echo $dotfile already up to date
 			 else
+					 # UGH. make this interactive please!!!
 					 echo $file and ~/$dotfile are different. Figure it out manually:
 					 diff -y $file ~/$dotfile
 			 fi
