@@ -24,8 +24,8 @@ Getting Started
 Pretty simple:
 
     git clone https://github.com/hbhanoo/dotenv.git
-		cd dotenv
-		./install.sh
+    cd dotenv
+    ./install.sh
 		
 - Put any proprietary files under ~/dotenv/private
 
