@@ -1,2 +1,4 @@
-export PATH=".:$HOME/bin:$PATH"
-source ~/dotenv/bootstrap.sh
+# whenever we are starting with non login shells,
+# we just want them to be completely set up
+source ~/.bash_profile
+sp
