@@ -3,6 +3,33 @@ _find_source_files() {
 		find . -type f -name source.\*
 }
 
+# _merge_files $home $repo
+_maybe_merge_files() {
+		homefile=$1
+		repofile=$2
+		#		if confirm "$file and ~/$dotfile are different. Try merging?"; then
+		if confirm "$repofile and $homefile are different. Try merging?"; then
+				echo 
+				tmpfile=$(mktemp /tmp/$repofile.XXXXXX)
+				echo "type '?' for help with sdiff merge"
+				echo --------------------------------------------------------------------------------
+				echo "(REPO)$repofile                    ---                    (HOME) $homefile"
+				sdiff -o $tmpfile -d $repofile $homefile
+				echo result:
+				echo vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+				cat $tmpfile
+				echo ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+				if confirm "accept merge?"; then
+						echo accepting
+						cp $tmpfile $repofile
+						cp $tmpfile $homefile
+				else
+						echo 'ignoring'
+				fi
+				rm $tmpfile
+		fi
+}
+
 _install_source_file() {
 		file=$1
 		dotfile=`echo ${file} | sed -e s/source././`
@@ -11,9 +38,7 @@ _install_source_file() {
 					 # no worries.
 					 echo $dotfile already up to date
 			 else
-					 # UGH. make this interactive please!!!
-					 echo $file and ~/$dotfile are different. Figure it out manually:
-					 diff -y $file ~/$dotfile
+					 _maybe_merge_files ~/$dotfile $file
 			 fi
 		else
 				echo copying $file to home directory as $dotfile
@@ -21,9 +46,13 @@ _install_source_file() {
 		fi
 }
 
+
+# if confirm "do this thing? "; then
+#    thing
+# fi
 confirm () {
     # call with a prompt string or use a default
-    read -r -p "${1:-Are you sure? [y/N]} " response
+    read -r -p "${1:-Are you sure? } [y/N] " response
     case $response in
         [yY][eE][sS]|[yY]) 
             true
@@ -47,8 +76,7 @@ _import_dot_file() {
 						# no worries.
 						echo $dotfile already imported.
 				else
-						echo $dotfile and $sourcefile are different. Figure it out manually:
-						diff $dotfile $sourcefile
+						_maybe_merge_files $dotfile $sourcefile
 				fi
 		else
 				undecided=true
@@ -83,10 +111,14 @@ _find_dot_files() {
 		find ~/ -type f -name .\*[^~] -maxdepth 1
 }
 
+echo ">> installing files from repo into home directory
+"
 for f in $(_find_source_files); do
 		_install_source_file $f
 done
 
+echo ">> seeing if there are any files that need importing
+"
 for f in $(_find_dot_files); do
 		_import_dot_file $f
 done
