@@ -11,8 +11,8 @@
 ;;; Load in any global configuration files:
 ;;; 
 
-(add-to-list 'load-path "/Users/bhanoo/.emacs.d/lisp")
-(add-to-list 'load-path "/Users/bhanoo/.emacs.d/third-party")
+(add-to-list 'load-path "~/.emacs.d/lisp")
+(add-to-list 'load-path "~/.emacs.d/third-party")
 
 (load-library "bhanoo.keydefs")
 
