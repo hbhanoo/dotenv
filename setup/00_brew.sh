@@ -5,4 +5,5 @@ else
 fi
 brew update
 brew update
-brew tap caskroom/cask homebrew/services
+brew tap caskroom/cask
+brew tap homebrew/services
