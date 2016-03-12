@@ -45,7 +45,6 @@ _dotenv_debug() {
 bootstrap=${dotenv}/common/bash
 if [ -f ${bootstrap} ]; then
   alias sp="source ${bootstrap}"
-  echo Type 'sp' to get your env started.
 else
-  echo bootstrap file not found!
+  echo ERROR: bootstrap file not found!
 fi

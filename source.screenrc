@@ -1,11 +1,9 @@
 # use z as the escape key
 escape ^Zz
-# use a login-shell (ie. don't mess with stuff)
-# TODO(hbhanoo): get rid of this, and make it so that
-# .bashrc automatically starts up with full env, but bash_profile doesn't
-# (so that first window is clean)
-shell -$SHELL
-# 
+# we don't use a login shell, because I want the env to be nicely automatically
+# bootstrapped for us.But I'm saving the config here anyways for reference:
+# shell -$SHELL
+
 autodetach on
 # show the windows at the bottom
 hardstatus alwayslastline "%w"
