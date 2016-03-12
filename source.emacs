@@ -21,8 +21,8 @@
 
 ;; git
 (add-to-list 'load-path "/usr/local/share/git-core/contrib/emacs/")
-(load-library "git")
-(load-library "git-blame.el")
+;;(load-library "git")
+;;(load-library "git-blame.el")
 
 ;package management:
 (require 'package)
@@ -61,14 +61,14 @@
 ;(setq ri-ruby-script "/opt/local/lib/ruby/elisp/ri-emacs.rb")
 ;(autoload 'ri "/opt/local/lib/ruby/elisp/ri-ruby.el" nil t)
 
-(autoload 'run-ruby "inf-ruby"
-  "Run an inferior Ruby process")
-(autoload 'inf-ruby-keys "inf-ruby"
-  "Set local key defs for inf-ruby in ruby-mode")
-(add-hook 'ruby-mode-hook
-	  '(lambda ()
-	     (inf-ruby-keys)
-	     ))
+;; (autoload 'run-ruby "inf-ruby"
+;;   "Run an inferior Ruby process")
+;; (autoload 'inf-ruby-keys "inf-ruby"
+;;   "Set local key defs for inf-ruby in ruby-mode")
+;; (add-hook 'ruby-mode-hook
+;; 	  '(lambda ()
+;; 	     (inf-ruby-keys)
+;; 	     ))
 
 
 (defun scroll-down-in-place (arg)
@@ -140,7 +140,6 @@ things appear in an appropriate orientation"
 ;;; 
 ;;;********************************************************************************
 
-(put 'narrow-to-region 'disabled nil)
 
 ;;; don't blink!
 (if (fboundp 'blink-cursor-mode)
@@ -218,3 +217,6 @@ things appear in an appropriate orientation"
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 (global-set-key [f8] 'mmm-parse-buffer)
 (setq-default tab-width 2)
+(setq shell-file-name "bash")
+(setq shell-command-switch "-ic")
+(put 'narrow-to-region 'disabled nil)
