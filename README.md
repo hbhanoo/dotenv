@@ -21,16 +21,16 @@ What it does
 Getting Started
 ---------------
 
-- Pull this directory under ~/dotenv
-- Copy `.bashrc` into your home directory.
+Pretty simple:
+
+    git clone https://github.com/hbhanoo/dotenv.git
+		cd dotenv
+		./install.sh
+		
 - Put any proprietary files under ~/dotenv/private
 
 
 Status
 ------
 
-Just started working on this, so it's very incomplete. Things to do:
-
-- How do other dotfiles fit into this? probably want symlinking
-- How about the loveable emacs env?
-- Separate out the loading environment from the actual dotfiles.
+Right now this also contains all my personal dotfiles. Ideally the bootstrapping would be separate from my actual dotfiles.
