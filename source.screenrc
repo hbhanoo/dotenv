@@ -12,3 +12,4 @@ hardstatus alwayslastline "%w"
 
 # lots of history; why not.
 defscrollback 10000 
+startup_message off
