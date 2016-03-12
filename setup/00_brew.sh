@@ -7,3 +7,5 @@ brew update
 brew update
 brew tap caskroom/cask
 brew tap homebrew/services
+echo installing core packages
+brew install bash bash-completion brew-cask coreutils findutils git libyaml openssl readline wget
