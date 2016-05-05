@@ -6,8 +6,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=20000
+export HISTSIZE=10000
+export HISTFILESIZE=20000
 
 # TODO (bhanoo): move this to another file.
 
@@ -40,8 +40,8 @@ prompt_command() {
   LAST_HISTORY_NUMBER=$history_number
 }
 
-# Log the commands only for user 'bhanoo'
-if [ $USER = bhanoo ]; then
+# Log the commands only for user 'hbhanoo'
+if [ $USER = hbhanoo ]; then
   PROMPT_COMMAND='echo `date` `tty` `pwd` `history 1` >> ${SHARED_HISTORY_FILE}'
 else
   unset -v PROMPT_COMMAND
