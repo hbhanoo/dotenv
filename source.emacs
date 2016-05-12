@@ -5,6 +5,17 @@
 ;;;
 ;;; --------------------------------------------------------------------------------
 
+;;; from https://www.emacswiki.org/emacs-test/LoadingLispFiles
+(defmacro with-library (symbol &rest body)
+	`(condition-case nil
+			 (progn
+				 (require ',symbol)
+				 ,@body)
+		 
+		 (error (message (format "I guess we don't have %s available." ',symbol))
+						nil)))
+(put 'with-library 'lisp-indent-function 1)
+
 ;; Get the big button-bar OFF if we are using xemacs
 (if (fboundp 'tool-bar-mode)
     (tool-bar-mode -1))
@@ -20,9 +31,10 @@
 ;;(require 'psvn)
 
 ;; git
+(add-to-list 'load-path "/usr/local/Cellar/git/2.7.3/share/emacs/site-lisp/git/")
 (add-to-list 'load-path "/usr/local/share/git-core/contrib/emacs/")
-;;(load-library "git")
-;;(load-library "git-blame.el")
+(load-library "git")
+(load-library "git-blame.el")
 
 ;package management:
 (require 'package)
@@ -36,8 +48,9 @@
 (add-to-list 'package-archives
     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
-(require 'flymake-ruby)
-(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+
+;;(require 'flymake-ruby)
+;;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
 ;; packages:
 ;;  flymake-mode
@@ -49,6 +62,8 @@
 ;;  rvm
 ;;  goto-gem
 ;;  coffee-mode
+;;  markdown-mode (requires brew install markdown)
+;;  markdown-preview-mode
 (require 's)
 (require 'rvm)
 ;; make ruby indentation normal
@@ -220,3 +235,20 @@ things appear in an appropriate orientation"
 (setq shell-file-name "bash")
 (setq shell-command-switch "-ic")
 (put 'narrow-to-region 'disabled nil)
+(ido-mode)
+
+;;; javascript
+(setq js-indent-level 2)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(indent-tabs-mode nil))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(server-start)

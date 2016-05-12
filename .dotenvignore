@@ -13,3 +13,7 @@ source.psql_history
 source.shared_history
 source.viminfo
 source.profile
+source.appcfg_nag
+source.dockercfg
+source.homebrew_analytics_user_uuid
+source.wget-hsts
