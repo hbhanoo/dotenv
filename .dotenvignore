@@ -17,3 +17,4 @@ source.appcfg_nag
 source.dockercfg
 source.homebrew_analytics_user_uuid
 source.wget-hsts
+source.bash_profile.backup
