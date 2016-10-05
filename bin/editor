@@ -4,12 +4,11 @@
 # https://gist.github.com/ambethia/304964
 
 NON_VISUAL_EDITOR='emacs -nw'
-VISUAL_EDITOR='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient'
+VISUAL_EDITOR=`which emacsclient`
 START_DAEMON='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
 
 if [ ! -x $VISUAL_EDITOR ]; then
 		$NON_VISUAL_EDITOR "$@"
-		exit
 fi
 
 IS_FRAME_VISIBLE=$(/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -e '(<= 2 (length (visible-frame-list)))' 2>/dev/null)
