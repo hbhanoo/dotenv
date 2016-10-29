@@ -5,7 +5,7 @@
 
 NON_VISUAL_EDITOR='emacs -nw'
 VISUAL_EDITOR=`which emacsclient`
-START_DAEMON='/Applications/Emacs.app/Contents/MacOS/Emacs --daemon'
+START_DAEMON="`which emacs` --daemon"
 
 if [ ! -x $VISUAL_EDITOR ]; then
 		$NON_VISUAL_EDITOR "$@"
@@ -13,17 +13,13 @@ fi
 
 IS_FRAME_VISIBLE=$(/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -e '(<= 2 (length (visible-frame-list)))' 2>/dev/null)
 if [ "" == "$IS_FRAME_VISIBLE" ]; then
-		# echo looks like there was an error? trying to start the daemon
 		$START_DAEMON &>/dev/null
 		IS_FRAME_VISIBLE=$(/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -e '(<= 2 (length (visible-frame-list)))' 2>/dev/null)
 fi
-# echo done, $IS_FRAME_VISIBLE
 
 if [ "nil" == "$IS_FRAME_VISIBLE" ]; then
     # echo no frame visible, command needs to open a new frame
     VISUAL_EDITOR="$VISUAL_EDITOR -c"
     # echo new command is $VISUAL_EDITOR
 fi
-echo start, calling $VISUAL_EDITOR
 $VISUAL_EDITOR "$@"
-echo end

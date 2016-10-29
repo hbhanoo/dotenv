@@ -13,4 +13,10 @@ brew install bash bash-completion coreutils findutils git libyaml openssl readli
 brew install emacs --cocoa
 
 echo setup iterm2 keybindings
+echo <<EOF 
+cmd + left: Send Escape Sequence, Esc + b
+cmd + right: Send Escape Sequence, Esc + f
+cmd + d: Send Escape Sequence, Esc + d
+cmd + backspace: Send Hex Code, 0x17
+EOF
 open http://brizzled.clapper.org/blog/2009/05/16/mac-os-x-iterm-bash-key-bindings-and-muscle-memory/

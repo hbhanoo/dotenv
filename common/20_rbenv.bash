@@ -1,2 +1,2 @@
 # rbenv instead
-eval "$(rbenv init -)"
+eval "$(/usr/local/bin/rbenv init -)"
