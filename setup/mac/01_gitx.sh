@@ -4,9 +4,9 @@ if hash gitx 2> /dev/null; then
 else
 		echo getting gitx
 		cd /tmp
-		wget http://frim.frim.nl/GitXStable.app.zip
-		unzip GitXStable.app.zip
-		mv GitX.app /Applications
+		wget http://builds.phere.net/GitX/development/GitX-dev.dmg
+		echo move it to your apps folder
+		open GitX-dev.dmg
 		echo enable terminal usage from the GitX menu...
 		open -a gitx
 fi

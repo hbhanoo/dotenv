@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
-export PATH=".:$HOME/bin:$PATH"
+export PATH=".:$HOME/bin:$HOME/dotenv/bin:$PATH"
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
