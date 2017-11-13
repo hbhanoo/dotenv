@@ -18,3 +18,5 @@ source.dockercfg
 source.homebrew_analytics_user_uuid
 source.wget-hsts
 source.bash_profile.backup
+source.rediscli_history
+source.sqlite_history

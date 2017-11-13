@@ -31,39 +31,47 @@
 ;;(require 'psvn)
 
 ;; git
-(add-to-list 'load-path "/usr/local/Cellar/git/2.7.3/share/emacs/site-lisp/git/")
+(add-to-list 'load-path "/usr/local/Cellar/git/2.10.0/share/emacs/site-lisp/git/")
 (add-to-list 'load-path "/usr/local/share/git-core/contrib/emacs/")
 (load-library "git")
+(load-library "web-mode.el")
+(require 'web-mode)
+(defun my-web-mode-hook ()
+  "Indentation hook for web mode."
+  (setq web-mode-markup-indent-offset 2)
+)
+(add-hook 'web-mode-hook  'my-web-mode-hook)
 (load-library "git-blame.el")
 
 ;package management:
 (require 'package)
-(add-to-list 'package-archives
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
+; list the packages you want
+(setq package-list '(haml-mode mmm-mode sass-mode yaml-mode yari rvm goto-gem coffee-mode markdown-mode markdown-preview-mode))
+
+(setq package-archives '(("elpa" . "http://tromey.com/elpa/")
+                         ("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")))
 (add-to-list 'package-archives
              '("melpa" . "https://melpa.org/packages/"))
 (add-to-list 'package-archives
              '("melpa-stable" . "https://stable.melpa.org/packages/") t)
 (add-to-list 'package-archives
     '("melpa" . "http://melpa.milkbox.net/packages/") t)
+; activate all the packages (in particular autoloads)
 (package-initialize)
+
+(unless package-archive-contents
+  (package-refresh-contents))
+
+
+; install the missing packages
+(dolist (package package-list)
+  (unless (package-installed-p package)
+    (package-install package)))
 
 ;;(require 'flymake-ruby)
 ;;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
-;; packages:
-;;  flymake-mode
-;;  haml-mode
-;;  mmm-mode (aka multiple major modes)
-;;  sass-mode
-;;  yaml-mode
-;;  yari (ri for emacs)
-;;  rvm
-;;  goto-gem
-;;  coffee-mode
-;;  markdown-mode (requires brew install markdown)
-;;  markdown-preview-mode
 (require 's)
 (require 'rvm)
 ;; make ruby indentation normal
@@ -244,7 +252,9 @@ things appear in an appropriate orientation"
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(indent-tabs-mode nil))
+ '(package-selected-packages
+	 (quote
+		(sort-words jsx-mode less-css-mode web-mode s yaml-mode hamlet-mode sass-mode flymake-mode mmm-mode haml-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -252,3 +262,4 @@ things appear in an appropriate orientation"
  ;; If there is more than one, they won't work right.
  )
 (server-start)
+(put 'upcase-region 'disabled nil)
