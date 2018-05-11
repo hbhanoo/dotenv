@@ -1,6 +1,6 @@
 ;;; --------------------------------------------------------------------------------
 ;;; File: .emacs
-;;; 
+;;;
 ;;; Hemant Bhanoo
 ;;;
 ;;; --------------------------------------------------------------------------------
@@ -11,16 +11,18 @@
 			 (progn
 				 (require ',symbol)
 				 ,@body)
-		 
+
 		 (error (message (format "I guess we don't have %s available." ',symbol))
 						nil)))
 (put 'with-library 'lisp-indent-function 1)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;; Get the big button-bar OFF if we are using xemacs
 (if (fboundp 'tool-bar-mode)
     (tool-bar-mode -1))
 ;;; Load in any global configuration files:
-;;; 
+;;;
 
 (add-to-list 'load-path "~/.emacs.d/lisp")
 (add-to-list 'load-path "~/.emacs.d/third-party")
@@ -159,14 +161,14 @@ things appear in an appropriate orientation"
 ;;; Hemant's Helpful Info:
 ;;;                     :
 ;;; Description
-;;; Set a Key Binding   : (global-set-key "key" (func) )                    
-;;; 
+;;; Set a Key Binding   : (global-set-key "key" (func) )
+;;;
 ;;;********************************************************************************
 
 
 ;;; don't blink!
 (if (fboundp 'blink-cursor-mode)
-    (blink-cursor-mode nil)) 
+    (blink-cursor-mode nil))
 
 (defun time-insert (arg)
   "insert time-stamp"
@@ -187,7 +189,7 @@ things appear in an appropriate orientation"
       )
     )
 )
-		   
+
 (defun shell-command-insert (command)
   "insert results of shell command into buffer"
   (interactive "Mcommand: ")
@@ -227,8 +229,8 @@ things appear in an appropriate orientation"
     :match-face (("<%#" . mmm-comment-submode-face)
                  ("<%=" . mmm-output-submode-face)
                  ("<%"  . mmm-code-submode-face))
-    :front "<%[#=]?" 
-    :back "%>" 
+    :front "<%[#=]?"
+    :back "%>"
     :insert ((?% erb-code       nil @ "<%"  @ " " _ " " @ "%>" @)
              (?# erb-comment    nil @ "<%#" @ " " _ " " @ "%>" @)
              (?= erb-expression nil @ "<%=" @ " " _ " " @ "%>" @))
