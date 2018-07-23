@@ -241,6 +241,7 @@ things appear in an appropriate orientation"
             (mmm-mode-on)))
 (add-to-list 'auto-mode-alist '("\\.rhtml$" . html-mode))
 (global-set-key [f8] 'mmm-parse-buffer)
+(setq-default indent-tabs-mode nil) ;; no tabs please
 (setq-default tab-width 2)
 (setq shell-file-name "bash")
 (setq shell-command-switch "-ic")
