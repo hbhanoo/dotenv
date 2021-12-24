@@ -46,4 +46,3 @@ if [ $USER = hbhanoo ]; then
 else
   unset -v PROMPT_COMMAND
 fi
-

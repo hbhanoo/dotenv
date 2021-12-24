@@ -6,6 +6,12 @@
 ;;; --------------------------------------------------------------------------------
 
 ;;; from https://www.emacswiki.org/emacs-test/LoadingLispFiles
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+
 (defmacro with-library (symbol &rest body)
 	`(condition-case nil
 			 (progn
@@ -28,14 +34,6 @@
 (add-to-list 'load-path "~/.emacs.d/third-party")
 
 (load-library "bhanoo.keydefs")
-
-;; svn stuff
-;;(require 'psvn)
-
-;; git
-(add-to-list 'load-path "/usr/local/Cellar/git/2.10.0/share/emacs/site-lisp/git/")
-(add-to-list 'load-path "/usr/local/share/git-core/contrib/emacs/")
-(load-library "git")
 (load-library "web-mode.el")
 (require 'web-mode)
 (defun my-web-mode-hook ()
@@ -43,8 +41,39 @@
   (setq web-mode-markup-indent-offset 2)
 )
 (add-hook 'web-mode-hook  'my-web-mode-hook)
-(load-library "git-blame.el")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (lua-mode typescript typescript-mode adoc-mode flymd logview sort-words jsx-mode less-css-mode web-mode s yaml-mode hamlet-mode sass-mode flymake-mode mmm-mode haml-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
 
+;;; from https://www.emacswiki.org/emacs-test/LoadingLispFiles
+(defmacro with-library (symbol &rest body)
+	`(condition-case nil
+			 (progn
+				 (require ',symbol)
+				 ,@body)
+
+		 (error (message (format "I guess we don't have %s available." ',symbol))
+						nil)))
+(put 'with-library 'lisp-indent-function 1)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+;; Get the big button-bar OFF if we are using xemacs
+(if (fboundp 'tool-bar-mode)
+    (tool-bar-mode -1))
+;;; Load in any global configuration files:
+;;;
 ;package management:
 (require 'package)
 ; list the packages you want
@@ -64,7 +93,6 @@
 
 (unless package-archive-contents
   (package-refresh-contents))
-
 
 ; install the missing packages
 (dolist (package package-list)
@@ -250,19 +278,16 @@ things appear in an appropriate orientation"
 
 ;;; javascript
 (setq js-indent-level 2)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-	 (quote
-		(sort-words jsx-mode less-css-mode web-mode s yaml-mode hamlet-mode sass-mode flymake-mode mmm-mode haml-mode))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
+;;; for jsx stuff:
+(setq web-mode-content-types-alist '(("jsx" . "\\.js[x]?\\'")))
+
+(defun web-mode-init-hook ()
+  "Hooks for Web mode.  Adjust indent."
+  (setq web-mode-markup-indent-offset 2))
+
+(add-hook 'web-mode-hook  'web-mode-init-hook)
+;;; /jsx
+
 (server-start)
 (put 'upcase-region 'disabled nil)

@@ -2,7 +2,7 @@
 	excludesfile = ~/.gitignore
 	
 [user]
-	email = github@hbhanoo.fastmail.fm
+	email = 151884+hbhanoo@users.noreply.github.com
 	name = Hemant Bhanoo
 [alias]
 	co = checkout

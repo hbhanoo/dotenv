@@ -17,7 +17,7 @@ if [ "" == "$IS_FRAME_VISIBLE" ]; then
 		IS_FRAME_VISIBLE=$(/Applications/Emacs.app/Contents/MacOS/bin/emacsclient -e '(<= 2 (length (visible-frame-list)))' 2>/dev/null)
 fi
 
-if [ "nil" == "$IS_FRAME_VISIBLE" ]; then
+if [ "t" == "$IS_FRAME_VISIBLE" ]; then
     # echo no frame visible, command needs to open a new frame
     VISUAL_EDITOR="$VISUAL_EDITOR -c"
     # echo new command is $VISUAL_EDITOR
