@@ -46,9 +46,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(flycheck-ruby-rubocop-executable "/Users/hbhanoo/.rbenv/shims/rubocop")
  '(package-selected-packages
-   (quote
-    (lua-mode typescript typescript-mode adoc-mode flymd logview sort-words jsx-mode less-css-mode web-mode s yaml-mode hamlet-mode sass-mode flymake-mode mmm-mode haml-mode))))
+   '(tide lsp-mode find-file-in-project find-file-in-repository lua-mode typescript typescript-mode adoc-mode flymd logview sort-words jsx-mode less-css-mode web-mode s yaml-mode hamlet-mode sass-mode flymake-mode mmm-mode haml-mode lsp-mode tide)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -77,8 +77,7 @@
 ;package management:
 (require 'package)
 ; list the packages you want
-(setq package-list '(haml-mode mmm-mode sass-mode yaml-mode yari rvm goto-gem coffee-mode markdown-mode markdown-preview-mode))
-
+(setq package-list '(haml-mode mmm-mode sass-mode yaml-mode yari rvm goto-gem coffee-mode markdown-mode markdown-preview-mode find-file-in-repository))
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")))
@@ -99,8 +98,7 @@
   (unless (package-installed-p package)
     (package-install package)))
 
-;;(require 'flymake-ruby)
-;;(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+(require 'flymake-ruby)
 
 (require 's)
 (require 'rvm)
@@ -122,6 +120,8 @@
 ;; 	  '(lambda ()
 ;; 	     (inf-ruby-keys)
 ;; 	     ))
+
+(global-set-key (kbd "C-x f") 'find-file-in-repository)
 
 
 (defun scroll-down-in-place (arg)
@@ -166,7 +166,7 @@ things appear in an appropriate orientation"
 (require 'paren)
 (show-paren-mode 't)
 (setq show-paren-style 'mixed)
-(set-face-foreground 'show-paren-match-face nil) (set-face-background 'show-paren-match-face "blue")
+;; ERROR 2021/12/24 (set-face-foreground 'show-paren-match-face nil) (set-face-background 'show-paren-match-face "blue")
 ;;;(resize-minibuffer-mode)		; this is cool
 (setq resize-minibuffer-window-max-height 5)
 (global-font-lock-mode t)
@@ -275,6 +275,70 @@ things appear in an appropriate orientation"
 (setq shell-command-switch "-ic")
 (put 'narrow-to-region 'disabled nil)
 (ido-mode)
+
+;; http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
+(require 'flycheck)
+;; turn on flychecking globally
+(add-hook 'after-init-hook #'global-flycheck-mode)
+
+;; disable jshint since we prefer eslint checking
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(javascript-jshint)))
+
+;; use web-mode for .jsx files
+(add-to-list 'auto-mode-alist '("\\.jsx$" . web-mode))
+
+;; http://www.flycheck.org/manual/latest/index.html
+;; use eslint with web-mode for jsx files
+(flycheck-add-mode 'javascript-eslint 'web-mode)
+;; https://github.com/ananthakumaran/tide
+;(flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
+
+;; customize flycheck temp file prefix
+(setq-default flycheck-temp-prefix ".flycheck")
+
+;; disable json-jsonlist checking for json files
+(setq-default flycheck-disabled-checkers
+  (append flycheck-disabled-checkers
+    '(json-jsonlist)))
+
+;; https://github.com/purcell/exec-path-from-shell
+;; only need exec-path-from-shell on OSX
+;; this hopefully sets up path and other vars better
+(when (memq window-system '(mac ns))
+  (exec-path-from-shell-initialize))
+(exec-path-from-shell-copy-env "GEM_PATH")
+
+;; use local eslint from node_modules before global
+;; http://emacs.stackexchange.com/questions/21205/flycheck-with-file-relative-eslint-executable
+(defun my/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/eslint/bin/eslint.js"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
+;; adjust indents for web-mode to 2 spaces
+(defun my-web-mode-hook ()
+  "Hooks for Web mode. Adjust indents"
+  ;;; http://web-mode.org/
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2))
+(add-hook 'web-mode-hook  'my-web-mode-hook)
+;; for better jsx syntax-highlighting in web-mode
+;; - courtesy of Patrick @halbtuerke
+(defadvice web-mode-highlight-part (around tweak-jsx activate)
+  (if (equal web-mode-content-type "jsx")
+    (let ((web-mode-enable-part-face nil))
+      ad-do-it)
+    ad-do-it))
+
+;; /END -- http://codewinds.com/blog/2015-04-02-emacs-flycheck-eslint-jsx.html
 
 ;;; javascript
 (setq js-indent-level 2)

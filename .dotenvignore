@@ -20,3 +20,6 @@ source.wget-hsts
 source.bash_profile.backup
 source.rediscli_history
 source.sqlite_history
+source.yarnrc
+source.crowdin.yml
+source.rnd

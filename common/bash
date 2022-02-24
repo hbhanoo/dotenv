@@ -1,4 +1,3 @@
 # bootstraps
 _dotenv_source_files common '*.bash'
-echo sourcing private:
 _dotenv_source_files private '*.bash'
