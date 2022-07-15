@@ -1,3 +1,2 @@
 #!/bin/bash
-brew install heroku
-
+brew tap heroku/brew && brew install heroku
