@@ -48,7 +48,7 @@
  ;; If there is more than one, they won't work right.
  '(flycheck-ruby-rubocop-executable "/Users/hbhanoo/.rbenv/shims/rubocop")
  '(package-selected-packages
-   '(tide lsp-mode find-file-in-project find-file-in-repository lua-mode typescript typescript-mode adoc-mode flymd logview sort-words jsx-mode less-css-mode web-mode s yaml-mode hamlet-mode sass-mode flymake-mode mmm-mode haml-mode lsp-mode tide)))
+   '(exec-path-from-shell tide lsp-mode find-file-in-project find-file-in-repository lua-mode typescript typescript-mode adoc-mode flymd logview sort-words jsx-mode less-css-mode web-mode s yaml-mode hamlet-mode sass-mode flymake-mode mmm-mode haml-mode lsp-mode tide)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -77,7 +77,7 @@
 ;package management:
 (require 'package)
 ; list the packages you want
-(setq package-list '(haml-mode mmm-mode sass-mode yaml-mode yari rvm goto-gem coffee-mode markdown-mode markdown-preview-mode find-file-in-repository))
+(setq package-list '(haml-mode mmm-mode sass-mode yaml-mode yari rvm coffee-mode markdown-mode markdown-preview-mode find-file-in-repository flymake-ruby s flycheck exec-path-from-shell))
 (setq package-archives '(("elpa" . "http://tromey.com/elpa/")
                          ("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")))
